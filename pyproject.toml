@@ -1,0 +1,18 @@
+[project]
+name = "api-rest-starter"
+version = "0.1.0"
+description = "Plantilla sencilla para aprender pruebas de API REST"
+requires-python = ">=3.11,<4.0"
+dependencies = ["requests>=2.31,<3.0"]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.0,<10.0"
+pytest-html = ">=4.0,<5.0"
+mkdocs-material = ">=9.0,<10.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

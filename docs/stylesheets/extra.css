@@ -1,0 +1,43 @@
+/* Inspirado en la dirección visual de EviDoc: azul marino y acento cian. */
+:root > * {
+  --md-primary-fg-color: #102b50;
+  --md-primary-fg-color--light: #174372;
+  --md-primary-fg-color--dark: #0a1c36;
+  --md-accent-fg-color: #087dae;
+  --md-typeset-a-color: #087dae;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #0b1a31;
+  --md-primary-fg-color--light: #173559;
+  --md-primary-fg-color--dark: #091426;
+  --md-accent-fg-color: #58c9ed;
+  --md-typeset-a-color: #58c9ed;
+}
+
+.md-header { box-shadow: 0 2px 12px rgba(6, 27, 52, .16); }
+.md-typeset h1, .md-typeset h2 { font-weight: 750; letter-spacing: -.025em; }
+.md-typeset h2 { border-bottom: 1px solid var(--md-default-fg-color--lightest); padding-bottom: .3em; }
+.md-typeset .highlight { border-radius: .6rem; overflow: hidden; }
+.md-typeset table:not([class]) { border-radius: .6rem; overflow: hidden; }
+.md-typeset .admonition { border-radius: .5rem; }
+
+.api-hero {
+  padding: 2.4rem 2.1rem;
+  margin: .6rem 0 2rem;
+  border-radius: 1rem;
+  color: #fff;
+  background: linear-gradient(125deg, #0c2342 0%, #134374 67%, #087dae 100%);
+  box-shadow: 0 12px 32px rgba(10, 31, 61, .18);
+}
+.api-hero .eyebrow { color: #83def4; font-weight: 800; text-transform: uppercase; letter-spacing: .13em; font-size: .7rem; }
+.api-hero h1 { color: #fff; margin: .35em 0 .22em; font-size: 2.1rem; }
+.api-hero p { color: #e2effc; max-width: 40rem; font-size: 1.03rem; }
+.api-hero a { display: inline-block; color: #0c2b4c; background: #fff; font-weight: 750; padding: .55em 1em; border-radius: .45rem; margin-top: .5rem; }
+.api-hero a:hover { background: #dbf6ff; color: #0c2b4c; }
+
+.api-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: .8rem; margin: 1.2rem 0 2rem; }
+.api-card { border: 1px solid var(--md-default-fg-color--lightest); padding: 1rem 1.2rem; border-radius: .75rem; background: var(--md-default-bg-color); }
+.api-card strong { display: block; font-size: 1rem; color: var(--md-typeset-color); }
+.api-card span { display: block; color: var(--md-default-fg-color--light); font-size: .78rem; margin-top: .4rem; }
+@media (max-width: 600px) { .api-hero { padding: 1.5rem 1.2rem; } .api-hero h1 { font-size: 1.65rem; } }

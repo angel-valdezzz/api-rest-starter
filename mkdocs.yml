@@ -1,0 +1,57 @@
+site_name: API REST · Guía de pruebas
+site_description: Aprende pruebas de servicios con Python, requests y pytest
+site_url: https://example.com/api-rest-starter/
+docs_dir: docs
+site_dir: site
+theme:
+  name: material
+  language: es
+  icon:
+    logo: material/api
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Activar modo oscuro
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Activar modo claro
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+extra_css:
+  - stylesheets/extra.css
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.tabbed:
+      alternate_style: true
+nav:
+  - Inicio: index.md
+  - Empezar:
+      - Instalación y primera ejecución: primeros-pasos.md
+      - Cómo está organizada la plantilla: plantilla.md
+  - Aprende API REST:
+      - HTTP y REST desde cero: tutorial/http.md
+      - Escribir pruebas con pytest: tutorial/pytest.md
+      - Peticiones con requests: tutorial/requests.md
+  - Trabajar con tus servicios:
+      - Adaptar las pruebas: adaptar.md
+      - Leer el reporte HTML: reportes.md
+  - Referencia:
+      - Problemas frecuentes: faq.md
+      - Plan de implementación: plan.md
