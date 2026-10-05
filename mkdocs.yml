@@ -1,3 +1,5 @@
+repo_url: https://github.com/angel-valdezzz/api-rest-starter
+repo_name: angel-valdezzz/api-rest-starter
 site_name: API REST · Guía de pruebas
 site_description: Aprende pruebas de servicios con Python, requests y pytest
 site_url: https://example.com/api-rest-starter/
@@ -7,6 +9,7 @@ theme:
   name: material
   language: es
   icon:
+    repo: fontawesome/brands/github
     logo: material/api
   palette:
     - scheme: default
