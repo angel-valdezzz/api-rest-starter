@@ -1,19 +1,31 @@
-# API REST Starter
+# api-rest-starter
 
-Plantilla didáctica de pruebas de API REST con Python, Poetry, `requests`, `pytest` y reporte HTML. La documentación usa MkDocs Material y una paleta inspirada en EviDoc.
+**Python + pytest + Requests** — Demo Users API.
 
-## Inicio rápido
+[English](README.md) · [Español](README.es.md)
 
-Necesitas Python 3.11+ y Poetry.
+Independent automation example. Each repository owns its tests, dependencies and CI.
 
-```bash
-poetry install
-poetry run python -m pytest -v --html=reports/reporte.html --self-contained-html
-poetry run mkdocs serve
+## Setup
+
+Python 3.12 is used by the launcher and local API. Node projects use Node 22; Java projects use JDK 21 and Maven 3.9+.
+
+```sh
+python -m pip install -r requirements.txt
 ```
 
-Las cinco pruebas se conectan a una API local que pytest levanta y detiene automáticamente. No necesitas Internet ni variables de entorno para **ejecutar** las pruebas (sí necesitas acceso a los paquetes durante la instalación).
+## Run
 
-Abre `reports/reporte.html` para ver el resultado. El manual se abre en la dirección que muestra `mkdocs serve`; empieza en **Instalación y primera ejecución**. Para comprobar enlaces y generar la web estática usa `poetry run mkdocs build --strict`.
+```sh
+python scripts/run.py --local-api -- python -m pytest tests/users --confcutdir=tests/users -v --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html
+```
 
-Consulta [`docs/plan.md`](docs/plan.md) para el plan de implementación y las siguientes mejoras.
+For an external API, set DEMO_BASE_URL and DEMO_API_KEY and omit --local-api. PARABANK_URL overrides the public UI URL. Environment variables must be set in your shell; .env files are not loaded automatically.
+
+## Structure and reports
+
+Tests describe business scenarios; pages/helpers encapsulate browser and HTTP interactions. scripts/run.py manages the real local API and redacts its ephemeral key from console and text reports. Native reports are retained by Actions even when tests fail.
+
+Read [scenarios](docs/scenarios.md), [validation status](VALIDATION.md) and [CI](.github/workflows/ci.yml).
+
+The public ParaBank instance can fail independently of the tests. No production service or credentials are used. Do not commit credentials or enable API request traces containing authentication headers.
