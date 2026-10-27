@@ -28,9 +28,18 @@ def local_application():
     with tempfile.TemporaryDirectory(prefix="demo-users-api-") as directory:
         process = subprocess.Popen(
             [
-                sys.executable, "-m", "uvicorn", "demo_api.main:create_app",
-                "--factory", "--host", "127.0.0.1", "--port", str(port),
-                "--no-access-log", "--log-level", "warning",
+                sys.executable,
+                "-m",
+                "uvicorn",
+                "demo_api.main:create_app",
+                "--factory",
+                "--host",
+                "127.0.0.1",
+                "--port",
+                str(port),
+                "--no-access-log",
+                "--log-level",
+                "warning",
             ],
             cwd=directory,
             env={**os.environ, "API_KEYS": json.dumps({"automation": key})},
@@ -43,7 +52,9 @@ def local_application():
                 if process.poll() is not None:
                     raise RuntimeError("The installed Demo Users API exited during startup")
                 try:
-                    with urllib.request.urlopen(settings.base_url + "/health", timeout=1) as response:
+                    with urllib.request.urlopen(
+                        settings.base_url + "/health", timeout=1
+                    ) as response:
                         if json.load(response) == {"status": "ok", "storage": "temporary"}:
                             break
                 except (OSError, ValueError):

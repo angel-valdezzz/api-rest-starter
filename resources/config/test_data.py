@@ -46,8 +46,13 @@ def user_scenarios() -> list[UserScenario]:
         replacement = template("replace-user.json")
         replacement["email"] = f"qa-{uuid4().hex}@example.com"
         result.append(
-            UserScenario(row["scenario"], payload, replacement,
-                         template("deactivate-user.json"), template("null-patch.json"))
+            UserScenario(
+                row["scenario"],
+                payload,
+                replacement,
+                template("deactivate-user.json"),
+                template("null-patch.json"),
+            )
         )
     return result
 
@@ -58,7 +63,9 @@ def default_user() -> UserScenario:
 
 def invalid_users() -> list[InvalidUserScenario]:
     cases = json.loads((DATA / "test" / "invalid_users.json").read_text(encoding="utf-8"))
-    return [InvalidUserScenario(row["name"], row["payload"], row["expected_status"]) for row in cases]
+    return [
+        InvalidUserScenario(row["name"], row["payload"], row["expected_status"]) for row in cases
+    ]
 
 
 def pagination_cases() -> list[dict]:

@@ -12,7 +12,9 @@ def test_user_can_be_created_consulted_replaced_and_removed(users, user_data):
 
     check.user_matches(users.retrieve(user_id), user_data.create, user_id)
     check.user_inactive(users.patch(user_id, user_data.deactivation), user_id)
-    check.user_replaced(users.replace(user_id, user_data.replacement), user_data.replacement, user_id)
+    check.user_replaced(
+        users.replace(user_id, user_data.replacement), user_data.replacement, user_id
+    )
     check.user_deleted(users.delete(user_id))
     check.user_missing(users.retrieve(user_id))
 

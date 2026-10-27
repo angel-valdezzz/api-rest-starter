@@ -19,7 +19,8 @@ def pytest_addoption(parser):
 def api_settings(pytestconfig):
     try:
         manager = (
-            local_application() if pytestconfig.getoption("--local-api")
+            local_application()
+            if pytestconfig.getoption("--local-api")
             else nullcontext(ApiSettings.from_environment())
         )
         with manager as settings:
