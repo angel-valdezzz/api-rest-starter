@@ -1,5 +1,13 @@
-# Validation status
+# Validation of the architectural correction pilot
 
-Architectural correction pilot under review. Previous green runs belong to the earlier implementation.
-Acceptance requires Poetry lock consistency, Ruff checks, executable layer rules, data-isolation checks
-and all business scenarios against the real Demo Users API. PR checks record actual outcomes.
+[Recorded run](https://github.com/angel-valdezzz/api-rest-starter/actions/runs/40587087037):
+11 architecture/data checks and 16 integration cases passed against the actual pinned Demo Users API.
+Poetry checks the committed lockfile and synchronizes the environment; Ruff validates committed source.
+
+The integration cases cover role-driven CRUD, conflicts, lifecycle, filters, pagination,
+statistics, payload errors, missing/invalid credentials and absent users.
+Scenarios call the services and semantic assertions. Data preparation and real API lifecycle
+belong to configuration. The synthetic historical starter is outside default collection.
+
+Subsequent commits have their own PR checks. Automated success is evidence of these checks;
+architectural acceptance and replication to other stacks remain under review.
