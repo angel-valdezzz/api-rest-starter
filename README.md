@@ -1,31 +1,51 @@
-# api-rest-starter
+# Python · pytest · Requests — Demo Users API
 
-**Python + pytest + Requests** — Demo Users API.
+[Español](README.es.md)
 
-[English](README.md) · [Español](README.es.md)
+Independent API automation following the established
+[Robot API architecture](https://github.com/angel-valdezzz/robotframework-api-testing/blob/main/docs/architecture.md).
+Scenarios, HTTP services, business assertions, configuration and input/payload data have separate responsibilities.
 
-Independent automation example. Each repository owns its tests, dependencies and CI.
+## Install and run
 
-## Setup
+Python 3.12–3.14 and Poetry 2.5.1. Run from the repository root:
 
-Python 3.12 is used by the launcher and local API. Node projects use Node 22; Java projects use JDK 21 and Maven 3.9+.
-
-```sh
-python -m pip install -r requirements.txt
+```powershell
+poetry sync
+poetry run pytest --local-api --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html
 ```
 
-## Run
+`--local-api` starts the actual separate FastAPI project installed from the commit in pyproject.toml/poetry.lock.
+No HTTP endpoints or fake application are implemented inside this example.
+For an existing deployment, set DEMO_BASE_URL and DEMO_API_KEY in your shell and omit --local-api.
+Use a dedicated testing credential and fictional data.
 
-```sh
-python scripts/run.py --local-api -- python -m pytest tests/users --confcutdir=tests/users -v --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html
+```powershell
+$env:DEMO_BASE_URL = "https://your-demo-users-api.example"
+$env:DEMO_API_KEY = "<your-private-key>"
+poetry run pytest -m integration
+poetry run pytest -m "not integration"
+poetry run ruff check resources tests
+poetry run ruff format --check resources tests
 ```
 
-For an external API, set DEMO_BASE_URL and DEMO_API_KEY and omit --local-api. PARABANK_URL overrides the public UI URL. Environment variables must be set in your shell; .env files are not loaded automatically.
+The .env.example file is documentation; it is not loaded automatically.
 
-## Structure and reports
+## Responsibilities
 
-Tests describe business scenarios; pages/helpers encapsulate browser and HTTP interactions. scripts/run.py manages the real local API and redacts its ephemeral key from console and text reports. Native reports are retained by Actions even when tests fail.
+| Path | Responsibility |
+| --- | --- |
+| tests/test_user_*.py | Business scenarios calling services and named business checks |
+| resources/services/users.py | Real HTTP operations and cleanup of users created by that test |
+| resources/assertions/users.py | Status, identity, state, filters, pagination and statistics checks |
+| resources/config | Settings, lifecycle/composition, fixtures and data preparation |
+| data/tables, data/test | Scenario matrices, validation inputs and expected outcomes |
+| data/payloads | Valid JSON templates, copied for each execution |
+| tests/test_architecture.py | Enforced dependency boundaries |
 
-Read [scenarios](docs/scenarios.md), [validation status](VALIDATION.md) and [CI](.github/workflows/ci.yml).
+Services never load CSV/JSON files. Tests contain no requests, endpoint strings or raw response assertions.
+API keys are excluded from settings repr and request logging; reports record method/path/status without headers.
+The local API key is ephemeral. Teardown cleans only IDs created by the current case, even on failure.
 
-The public ParaBank instance can fail independently of the tests. No production service or credentials are used. Do not commit credentials or enable API request traces containing authentication headers.
+[Architecture](docs/architecture.md) · [Scenario matrix](docs/scenarios.md) · [Validation](VALIDATION.md).
+The previous synthetic HTTP teaching material is retained under legacy/http-starter and is not collected or started.

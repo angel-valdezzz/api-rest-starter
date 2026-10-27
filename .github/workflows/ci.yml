@@ -1,41 +1,41 @@
-name: Automation
+name: API architecture and business scenarios
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: automation-${{ github.ref }}
+  group: api-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  test:
+  verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install
+      - name: Install Poetry
+        run: python -m pip install poetry==2.5.1
+      - name: Verify the committed lockfile and sync the environment
         run: |
-          python -m pip install -r requirements.txt
-      - name: Execute real application scenarios
-        run: python scripts/run.py --local-api -- python -m pytest tests/users --confcutdir=tests/users -v --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html
-      - name: Preserve native reports
+          poetry check --lock
+          poetry sync
+      - name: Quality and architectural boundaries
+        run: |
+          poetry run ruff format --check resources tests
+          poetry run ruff check resources tests
+          poetry run pytest -m "not integration" -v
+      - name: Real API business scenarios
+        run: poetry run pytest --local-api -m integration -v --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: automation-evidence
+          name: users-api-review-evidence
           path: |
             reports/
-            package-lock.json
-            results/
-            test-results/
-            playwright-report/
-            testscript-results/
-            target/surefire-reports/
-            target/site/
-            target/karate-reports/
-          if-no-files-found: warn
+            poetry.lock
           retention-days: 7

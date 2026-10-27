@@ -1,18 +1,33 @@
-[project]
-name = "api-rest-starter"
-version = "0.1.0"
-description = "Plantilla sencilla para aprender pruebas de API REST"
-requires-python = ">=3.11,<4.0"
-dependencies = ["requests>=2.31,<3.0"]
-
 [tool.poetry]
+name = "api-rest-starter"
+version = "0.2.0"
+description = "Layered API business scenarios against the separate Demo Users API"
+authors = ["Angel Gerardo Molina Valdez"]
 package-mode = false
 
+[tool.poetry.dependencies]
+python = ">=3.12,<3.15"
+requests = "2.32.5"
+
 [tool.poetry.group.dev.dependencies]
-pytest = ">=8.0,<10.0"
-pytest-html = ">=4.0,<5.0"
-mkdocs-material = ">=9.0,<10.0"
+pytest = "8.4.2"
+pytest-html = "4.1.1"
+ruff = "0.14.2"
+demo-users-api = {git = "https://github.com/angel-valdezzz/demo-users-api.git", rev = "971be3caf9cd88375c2dab8c935772c5fd2b95eb"}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra"
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+markers = ["integration: real Demo Users API scenarios"]
+log_cli = false
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/test_architecture.py" = ["E501"]

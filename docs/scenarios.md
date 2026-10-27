@@ -1,18 +1,15 @@
-# Application contracts
+# Escenarios de negocio
 
-UI: ParaBank. Every positive case registers a unique fictional customer.
-Never use john/demo, fixed account IDs, implicit test ordering, or real customer data.
-UI cases cover registration, logout/login, required fields, password mismatch,
-invalid credentials, and opening a savings account when supported by the suite.
+- CRUD completo con filas support y sales: creación, consulta, PATCH, PUT, DELETE y ausencia.
+- Correo duplicado: conflicto esperado, conservando al usuario original.
+- Activación/desactivación, conflictos de estado y filtro de usuarios inactivos.
+- Estadísticas antes y después de crear un usuario.
+- Filtros combinados y paginación.
+- Entradas inválidas desde data/test: nombre/email, rol y campos desconocidos.
+- Paginación inválida: limit 0, offset negativo y limit mayor que el máximo.
+- PATCH con null rechazado y usuario original sin modificación.
+- Health público y credenciales ausentes/incorrectas.
+- Usuario inexistente identificado por UUID válido.
 
-API: the separate Demo Users API, pinned by commit in requirements-service.txt.
-Authenticated requests use X-API-Key. POST/PUT require name and email.
-Roles: admin/support/sales. PATCH null is rejected (422); duplicate email is 409.
-Missing/invalid credentials return 401. DELETE returns 204, subsequent GET is 404.
-Each API test creates unique users and removes them in cleanup where the runner
-supports finally/fixture teardown. Local CI starts a fresh real service.
-
-ParaBank is an external shared service. An outage is a failing dependency, not a skip
-or a successful test. Automatic test retries are disabled. Use fresh data on reruns.
-Suite source is the authoritative scenario inventory; feature parity differs for
-experimental TestScript and is documented in its README.
+Las plantillas son JSON válido. La preparación conserva tipos y trabaja sobre copias.
+Los datos y expectativas pertenecen a las entradas o assertions; los tests no implementan HTTP.

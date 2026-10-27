@@ -1,0 +1,5 @@
+[
+  {"name": "Empty name and invalid email", "payload": {"name": "", "email": "invalid"}, "expected_status": 422},
+  {"name": "Unknown role", "payload": {"name": "Ana", "email": "ana@example.com", "role": "owner"}, "expected_status": 422},
+  {"name": "Unknown field", "payload": {"name": "Ana", "email": "ana@example.com", "unknown": true}, "expected_status": 422}
+]
