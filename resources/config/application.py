@@ -18,8 +18,6 @@ from resources.config.settings import ApiSettings
 @contextmanager
 def local_application():
     key = secrets.token_urlsafe(40)
-    if os.environ.get("GITHUB_ACTIONS"):
-        print("::add-mask::" + key, flush=True)
     with socket.socket() as listener:
         listener.bind(("127.0.0.1", 0))
         port = listener.getsockname()[1]
