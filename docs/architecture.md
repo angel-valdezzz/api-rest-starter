@@ -14,7 +14,7 @@ assertions, configuración y datos. No se añaden capas de negocio vacías ni se
 | Preparación de filas y plantillas | resources/config/test_data.py |
 | Entradas externas | data/tables, data/test, data/payloads |
 
-La suite importa el plugin de composición en tests/conftest.py.
+La suite importa el plugin de composición en conftest.py.
 Las fixtures abren una requests.Session por caso y componen UsersService con sus settings.
 Cada operación retorna la response real; los checks de negocio se ejecutan por separado y una vez.
 Crear usuario registra su ID antes de que una assertion pueda fallar. El teardown intenta eliminar

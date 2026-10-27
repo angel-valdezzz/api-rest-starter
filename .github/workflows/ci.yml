@@ -25,8 +25,8 @@ jobs:
           poetry sync
       - name: Quality and architectural boundaries
         run: |
-          poetry run ruff check --fix resources tests
           poetry run ruff format resources tests
+          poetry run ruff check --fix resources tests
           poetry run pytest -m "not integration" -v
       - name: Real API business scenarios
         run: poetry run pytest --local-api -m integration -v --junitxml=reports/junit.xml --html=reports/report.html --self-contained-html
